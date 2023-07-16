@@ -60,12 +60,14 @@ const MastodonPostFeed = ({
       })
   }, [postId]);
 
+  React.useEffect(() => {}, [mastodonPostAndReplies])
+
   return (
     <div id="mastodon-post-feed" className="w-full h-full">
       <React.Suspense fallback={<MastodonPostFeedLoading />}>
         {mastodonPostAndReplies.map((post) => {
           return (
-            <div>
+            <div id={`${post.username}-post`}>
               <div id={post.username}>{post.username}</div>
               <div dangerouslySetInnerHTML={{ __html: post.userPost }} />
             </div>
