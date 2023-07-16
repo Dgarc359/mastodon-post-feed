@@ -29,11 +29,10 @@ const MastodonPostFeed = ({
           userPost: response.data.content,
         };
 
-        setMastodonPostAndReplies((state) => {
-          state.push(originalPost);
-          return state;
-        });
+        setMastodonPostAndReplies((state) => [...state, originalPost]);
       });
+
+
     axios
       .get<MastodonAPIGetPostContextPayload>(
         `https://${mastodonInstanceUrl}/api/v1/statuses/${postId}/context`
@@ -48,16 +47,10 @@ const MastodonPostFeed = ({
           }
         );
 
-        setMastodonPostAndReplies((state) => {
-          state.push(...replies);
-          return state;
-        });
+        setMastodonPostAndReplies((state) => [...state, ...replies])
       });
 
-      setMastodonPostAndReplies((state) => {
-        state.reverse();
-        return state;
-      })
+      setMastodonPostAndReplies((state) => [...state.reverse()])
   }, [postId]);
 
   React.useEffect(() => {}, [mastodonPostAndReplies])
