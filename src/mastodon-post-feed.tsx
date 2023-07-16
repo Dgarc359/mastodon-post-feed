@@ -9,7 +9,10 @@ import {
 import { MastodonPostFeedLoading } from "./skeletons/mastodon-post-feed-loading";
 import axios from "axios";
 
-const MastodonPostFeed = ({ postId, mastodonInstanceUrl }: MastodonPostFeedProps) => {
+const MastodonPostFeed = ({
+  postId,
+  mastodonInstanceUrl,
+}: MastodonPostFeedProps) => {
   // const mastodonPostState = React.useState<unknown | null>(null);
   const [mastodonPostAndReplies, setMastodonPostAndReplies] = React.useState<
     MastodonPost[]
@@ -50,19 +53,26 @@ const MastodonPostFeed = ({ postId, mastodonInstanceUrl }: MastodonPostFeedProps
           return state;
         });
       });
+
+      setMastodonPostAndReplies((state) => {
+        state.reverse();
+        return state;
+      })
   }, [postId]);
 
   return (
-    <React.Suspense fallback={<MastodonPostFeedLoading />}>
-      {mastodonPostAndReplies.map((post) => {
-        return (
-          <div>
-            <div>{post.username}</div>
-            <div>{post.userPost}</div>
-          </div>
-        );
-      })}
-    </React.Suspense>
+    <div id="mastodon-post-feed" className="w-full h-full">
+      <React.Suspense fallback={<MastodonPostFeedLoading />}>
+        {mastodonPostAndReplies.map((post) => {
+          return (
+            <div>
+              <div>{post.username}</div>
+              <div dangerouslySetInnerHTML={{ __html: post.userPost }} />
+            </div>
+          );
+        })}
+      </React.Suspense>
+    </div>
   );
 };
 

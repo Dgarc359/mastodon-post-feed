@@ -9,6 +9,8 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "baseUrl": "./",
     "jsx": "react",
+    "outDir": "./lib",
+    "declaration": true,
     "paths": {
       "@/*": ["src/*"]
     },
