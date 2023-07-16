@@ -66,7 +66,7 @@ const MastodonPostFeed = ({
         {mastodonPostAndReplies.map((post) => {
           return (
             <div>
-              <div>{post.username}</div>
+              <div id={post.username}>{post.username}</div>
               <div dangerouslySetInnerHTML={{ __html: post.userPost }} />
             </div>
           );
