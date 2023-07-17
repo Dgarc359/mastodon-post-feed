@@ -74,7 +74,22 @@ export type MastodonAPIV1GetPostPayload = {
   mentions:Array<any>;
   tags:Array<any>;
   emojis:Array<any>;
-  card:null,
+  card?: {
+    url: string;
+    title: string;
+    description: string;
+    type: string;
+    author_name: string;
+    author_url: string;
+    provider_name: string;
+    provider_url: string;
+    html: string;
+    width: number;
+    height: number;
+    image: string;
+    embed_url: string;
+    blurhash: string;
+},
   poll:null
 }
 
@@ -87,10 +102,14 @@ export type MastodonAPIGetPostPayload = MastodonAPIV1GetPostPayload;
 
 export type MastodonAPIGetPostContextPayload = MastodonAPIV1GetPostContextPayload;
 
-export type MastodonPost = {
-  username: string;
-  userPost: string;
-}
+// // export type MastodonPost = {
+// //   username: string;
+// //   userPost: string;
+// }
+// export interface IMastodonPost {
+//   username: string;
+//   userPost: string;
+// }
 
 export type MastodonPostFeedProps = {
   mastodonInstanceUrl: string;

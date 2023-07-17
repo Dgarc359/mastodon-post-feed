@@ -3,11 +3,13 @@ import * as React from "react";
 import {
   MastodonAPIGetPostContextPayload,
   MastodonAPIGetPostPayload,
-  MastodonPost,
+  // IMastodonPost,
   MastodonPostFeedProps,
 } from "./mastodon-post-feed.types";
 import { MastodonPostFeedLoading } from "./skeletons/mastodon-post-feed-loading";
 import axios from "axios";
+// import { MastodonPost } from "./components";
+import { MastodonPostPresentation } from "./components";
 
 const MastodonPostFeed = ({
   postId,
@@ -15,7 +17,7 @@ const MastodonPostFeed = ({
 }: MastodonPostFeedProps) => {
   // const mastodonPostState = React.useState<unknown | null>(null);
   const [mastodonPostAndReplies, setMastodonPostAndReplies] = React.useState<
-    MastodonPost[]
+  MastodonAPIGetPostPayload[]
   >([]);
 
   React.useEffect(() => {
@@ -24,48 +26,69 @@ const MastodonPostFeed = ({
         `https://${mastodonInstanceUrl}/api/v1/statuses/${postId}`
       )
       .then((response) => {
-        const originalPost: MastodonPost = {
-          username: response.data.account.username,
-          userPost: response.data.content,
-        };
+        // const originalPost: MastodonAPIGetPostPayload = {
+        //   username: response.data.account.username,
+        //   userPost: response.data.content,
+        // };
+        // const originalPost: MastodonAPIGetPostPayload = {...response.data};
 
-        setMastodonPostAndReplies((state) => [...state, originalPost]);
+        setMastodonPostAndReplies((state) => [...state, response.data]);
       });
-
 
     axios
       .get<MastodonAPIGetPostContextPayload>(
         `https://${mastodonInstanceUrl}/api/v1/statuses/${postId}/context`
       )
       .then((response) => {
-        const replies: MastodonPost[] = response.data.descendants.map(
-          (reply) => {
-            return {
-              username: reply.account.username,
-              userPost: reply.content,
-            };
-          }
-        );
+        // const replies: MastodonAPIGetPostContextPayload[] = response.data.descendants.map(
+        //   (reply) => {
+        //     return {
+        //       username: reply.account.username,
+        //       userPost: reply.content,
+        //     };
+        //   }
+        // );
 
-        setMastodonPostAndReplies((state) => [...state, ...replies])
+        setMastodonPostAndReplies((state) => [...state, ...response.data.descendants]);
       });
 
-      setMastodonPostAndReplies((state) => [...state.reverse()])
+    setMastodonPostAndReplies((state) => [...state.reverse()]);
   }, [postId]);
 
-  React.useEffect(() => {}, [mastodonPostAndReplies])
+  React.useEffect(() => {}, [mastodonPostAndReplies]);
 
   return (
-    <div id="mastodon-post-feed" className="w-full h-full">
+    <div
+      id="mastodon-post-feed"
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <React.Suspense fallback={<MastodonPostFeedLoading />}>
-        {mastodonPostAndReplies.map((post) => {
-          return (
-            <div id={`${post.username}-post`}>
-              <div id={post.username}>{post.username}</div>
-              <div dangerouslySetInnerHTML={{ __html: post.userPost }} />
-            </div>
-          );
-        })}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          background: "#313543",
+          padding: "16px",
+          maxWidth: "23rem",
+          maxHeight: "34rem",
+          minWidth: "23rem",
+          minHeight: "34rem",
+          color: "#fff",
+          overflowY: "auto",
+        }}>
+          {mastodonPostAndReplies.map((post, i) => {
+            const elementObj = {
+              elementId: `mastodon-post-${i}`,
+            }
+            return (
+                <MastodonPostPresentation props={
+                  {...elementObj, ...post}
+                }/>
+            );
+          })}
+        </div>
       </React.Suspense>
     </div>
   );
