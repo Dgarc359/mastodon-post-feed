@@ -66,37 +66,12 @@ export const MastodonPostPresentation = ({
               >
                 <video
                   src={media.url}
+                  controls
                   style={{
                     height: "190px",
                     width: "100%",
                   }}
                 />
-                <div
-                  id={`video-player-controls-${i}`}
-                  style={{
-                    // display: "inline",
-                    display: "inline",
-                    direction: "ltr",
-                    // justifyContent: "space-between",
-                    position: "absolute",
-                    zIndex: 2,
-                    bottom: 0,
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    background: "transparent",
-                    verticalAlign: "baseline",
-                    maxHeight: "61px",
-                  }}
-                >
-                  <div style={{verticalAlign: "baseline", display: "inline"}}>
-                    {/* <i className={"fa fa-play fa-fw"}/> */}
-                    {/* <FontAwesomeIcon icon={faPlay} /> */}
-                    <i style={{verticalAlign: "baseline"}}>
-                      <FontAwesomeIcon icon={faPlay} />
-                    </i>
-                  </div>
-                </div>
               </div>
             );
           })}
