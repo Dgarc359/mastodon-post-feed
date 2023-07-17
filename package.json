@@ -5,7 +5,7 @@
   },
   "name": "mastodon-post-feed",
   "description": "A React component to display a timeline of a post and its replies from a Mastodon instance",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": "https://github.com/Dgarc359/mastodon-post-feed.git",
