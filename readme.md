@@ -3,7 +3,7 @@
 This project will give you a JSX element that contains a post and all of its replies in a single, scrollable element.
 
 ## Features
-* Displays a mastodon post and it's replies in chronological order
+* Displays a mastodon post and its replies in chronological order
 * Usable in React or Next.js!
 
 ## Installation
@@ -25,4 +25,4 @@ const YourReactFC = () => {
 ```
 
 ## Have a suggestion / bug report?
-Please file an issue! Contributors are welcome. please submit your PR for review
+Please file an issue! Contributors are welcome. Please submit your PR for review.
