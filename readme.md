@@ -17,5 +17,5 @@ const YourReactFC = () => {
 }
 ```
 
-## Future Improvements
-* Improve the props API for this component so that consumers can pass the link to the 
+## Have a suggestion / bug report?
+Please file an issue! Contributors are welcome. please submit your PR for review
