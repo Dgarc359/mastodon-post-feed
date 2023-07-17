@@ -6,6 +6,13 @@ This project will give you a JSX element that contains a post and all of its rep
 * Displays a mastodon post and it's replies in chronological order
 * Usable in React or Next.js!
 
+## Installation
+```shell
+npm i mastodon-post-feed
+# OR
+yarn add mastodon-post-feed
+```
+
 ## Usage
 ```tsx
 import MastodonPostFeed from 'mastodon-post-feed'
