@@ -10,6 +10,9 @@ import { MastodonPostFeedLoading } from "./skeletons/mastodon-post-feed-loading"
 import axios from "axios";
 // import { MastodonPost } from "./components";
 import { MastodonPostPresentation } from "./components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 const MastodonPostFeed = ({
   postId,
@@ -26,12 +29,6 @@ const MastodonPostFeed = ({
         `https://${mastodonInstanceUrl}/api/v1/statuses/${postId}`
       )
       .then((response) => {
-        // const originalPost: MastodonAPIGetPostPayload = {
-        //   username: response.data.account.username,
-        //   userPost: response.data.content,
-        // };
-        // const originalPost: MastodonAPIGetPostPayload = {...response.data};
-
         setMastodonPostAndReplies((state) => [...state, response.data]);
       });
 
@@ -40,15 +37,6 @@ const MastodonPostFeed = ({
         `https://${mastodonInstanceUrl}/api/v1/statuses/${postId}/context`
       )
       .then((response) => {
-        // const replies: MastodonAPIGetPostContextPayload[] = response.data.descendants.map(
-        //   (reply) => {
-        //     return {
-        //       username: reply.account.username,
-        //       userPost: reply.content,
-        //     };
-        //   }
-        // );
-
         setMastodonPostAndReplies((state) => [...state, ...response.data.descendants]);
       });
 
@@ -66,6 +54,16 @@ const MastodonPostFeed = ({
       }}
     >
       <React.Suspense fallback={<MastodonPostFeedLoading />}>
+        <div id="post-feed-container"
+            style={{
+                width: "100%",
+                height: "100%",
+                border: ".5rem solid #252330",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
         <div style={{
           display: "flex",
           flexDirection: "column",
@@ -88,6 +86,26 @@ const MastodonPostFeed = ({
                 }/>
             );
           })}
+        </div>
+            <div id="mastodon-post-feed-footer"
+                style={{
+                    flexGrow: 1,
+                    background: "#252330",
+                    display: "flex",
+                    justifyItems: "end",
+                    justifyContent: "end",
+                    maxHeight: "4rem",
+                }}
+            >
+                <FontAwesomeIcon icon={faGithub}
+                    style={{
+                        fontSize: "1.5rem",
+                        color: "#fff",
+                        cursor: "pointer",
+                        padding: "1rem 2rem 0 0",
+                        }}
+                />
+            </div>
         </div>
       </React.Suspense>
     </div>
